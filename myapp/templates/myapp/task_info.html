@@ -1,0 +1,96 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <div class="col-4 offset-4">
+        {% comment %} <h1> Task Details </h1> {% endcomment %}
+        <div class="card text-center">
+            <div class="card-header">
+              Task Details
+            </div>
+            <div class="card-body">
+              {% if task.task_status == 'Open' %}         
+                  <strong>Task Title</strong>  {{ task.task_title }} <br>
+                  <strong>Task Created by</strong> {{ task.task_created }} <br>
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br>
+                  <strong>Task Created on</strong> {{ task.task_created_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Due date</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Reward</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Description</strong> {{ task.task_description }} <br>
+                  <strong>Task Holder</strong> {{ task.task_holder }} <br> 
+                  <strong>Task Status</strong> {{ task.task_status }} <br> 
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_reward }} <br>
+              {% elif task.task_status == 'Close' %}
+                  <strong>Task Created by</strong> {{ task.task_created }} <br>
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br>
+                  <strong>Task Created on</strong> {{ task.task_created_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Due date</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Reward</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Description</strong> {{ task.task_description }} <br>
+                  <strong>Task Holder</strong> {{ task.task_holder }} <br> 
+                  <strong>Task Status</strong> {{ task.task_status }} <br> 
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br> 
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_reward }} <br>
+              {% elif task.task_status == 'In Process' %}
+                  <strong>Task Created by</strong> {{ task.task_created }} <br>
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br>
+                  <strong>Task Created on</strong> {{ task.task_created_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Due date</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Reward</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Description</strong> {{ task.task_description }} <br>
+                  <strong>Task Holder</strong> {{ task.task_holder }} <br> 
+                  <strong>Task Status</strong> {{ task.task_status }} <br> 
+                  <strong>Task Closed on</strong> {{ task.task_reward }} <br>
+                {% elif task.task_status == 'Reopen' %}
+                  <strong>Task Created by</strong> {{ task.task_created }} <br>
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br>
+                  <strong>Task Created on</strong> {{ task.task_created_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Due date</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Reward</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Description</strong> {{ task.task_description }} <br>
+                  <strong>Task Holder</strong> {{ task.task_holder }} <br> 
+                  <strong>Task Status</strong> {{ task.task_status }} <br> 
+                  <strong>Task Closed on</strong> {{ task.task_reward }} <br>
+                {% elif task.task_status == 'Resolved' %}
+                  <strong>Task Created by</strong> {{ task.task_created }} <br>
+                  <strong>Task Closed by</strong> {{ task.task_closed }} <br>
+                  <strong>Task Created on</strong> {{ task.task_created_on }} <br>
+                  <strong>Task Closed on</strong> {{ task.task_closed_on }} <br>
+                  <strong>Task Due date</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Reward</strong> {{ task.task_due_date }} <br>
+                  <strong>Task Description</strong> {{ task.task_description }} <br>
+                  <strong>Task Status</strong> {{ task.task_status }} <br> 
+                  <strong>Task Closed on</strong> {{ task.task_reward }} <br>
+              {% endif %}
+              
+              
+            </div>
+            <div class="card-footer text-body-secondary">
+              {% if request.user.username == task.task_created.username and task.task_status == 'Open' %}
+                <a href="{% url 'base' %}" class="btn btn-primary">Go Back</a>
+                <a href="{% url 'update_task' task.id %}"  class="btn btn-warning"> Update </a>
+                <a href="{% url 'delete_task' task.id %}"  class="btn btn-danger"> Delete </a>
+              {% elif request.user.username == task.task_created.username and task.task_status == 'Close' %}
+                <a href="{% url 'base' %}" class="btn btn-primary">Go Back</a>
+                <a href="{% url 'resolve_task' task.id %}" task.id class="btn btn-warning"> Resolved </a>
+                <a href="{% url 'reopen_task' task.id %}"  class="btn btn-danger"> Reopen </a>
+              {% elif task.task_status == 'In Process' or task.task_status == 'Close' or task.task_status == 'Reopen' or task.task_status == 'Resolved' %}
+                <a href="{% url 'base' %}" class="btn btn-primary">Go Back</a>
+              {% else %}
+                <a href="{% url 'base' %}" class="btn btn-primary">Go Back</a>
+                <a href="{% url 'accept_task' task.id %}"  class="btn btn-info"> Accept </a>
+              {% endif %}
+            </div>
+            
+          </div>
+
+    </div>
+
+{% endblock content %}

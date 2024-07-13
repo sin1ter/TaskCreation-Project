@@ -1,0 +1,36 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <div class="col-4 offset-1">
+        {% comment %} <h1> Task Details </h1> {% endcomment %}
+        {% for item in bucket  %}
+        
+            <div class="card text-center">
+                <div class="card-header">
+                Task Details
+                </div>
+                <div class="card-body">
+                <strong>Task Title</strong>  {{ item.task.task_title }} <br> 
+                <strong>Task Created by</strong>  {{ item.task.task_created_by }} <br>               
+                <strong>Task Created on</strong>  {{ item.task.task_created_on }} <br> 
+                <strong>Task Due Date</strong>  {{ item.task.task_due_date }} <br> 
+                <strong>Task Reward</strong>  {{ item.task.task_reward }} <br> 
+                <strong>Task Status</strong>  {{ item.task.task_status }} <br> 
+                <strong>Task Description</strong>  {{ item.task.task_description }} <br> 
+                <strong>Task Holder</strong>  {{ item.user }} <br>
+                </div>
+                <div class="card-footer text-body-secondary">
+                    <a href="{% url 'base' %}" class="btn btn-primary">Go Back</a>
+                    <a href="{% url 'closed_task' item.task.id %}" class="btn btn-warning">Close Task</a>
+                    <a href="{% url 'remove_task' item.task.id %} " class="btn btn-danger">Remove Task</a>
+                </div>
+                
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock content %}

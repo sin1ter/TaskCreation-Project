@@ -1,0 +1,15 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+
+{% block content %}
+
+    <div class="col-4 offset-4">
+        <form action="" method="POST" class="form-horizontal">
+            <h1>Add Coin</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+    </div>
+
+{% endblock content %}
