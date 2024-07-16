@@ -16,10 +16,11 @@ This Task Management System is designed to facilitate collaborative task handlin
 
 1. **User Authentication**: Only authenticated users can create, complete, or reopen tasks.
 2. **Task Lifecycle**:
-    - A user creates a task with necessary details.
+    - A user creates a task with the necessary details.
     - Another user can accept and complete the task.
     - If the task is not completed correctly, the creator can reopen it for further action.
     - If the task is completed correctly, the creator can resolve it.
+    - When the task is resolved by the creator of the task, the reward will be added to the user who completed the task
 
 ## Getting Started
 
