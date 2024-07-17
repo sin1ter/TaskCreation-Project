@@ -6,6 +6,17 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils import timezone
 from django.db.models import Q
+from django.http import HttpResponse
+
+# for chart
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import seaborn as sns
+import io
+
+
+
 # Create your views here.
 
 def BasePage(request):
@@ -291,5 +302,50 @@ def Transactions(request):
         }
         return render(request, 'myapp/transaction.html', context)
     else:
-        messages.success(request, 'You must be logged in to see transaction')
+        messages.error(request, 'You must be logged in to see transaction')
         return redirect('login')
+
+
+# Chart 
+def dashboard(request):
+    if request.user.is_authenticated:
+
+        open = TaskDetails.objects.filter(task_status='Open').count()
+        close = TaskDetails.objects.filter(task_status='Closed').count()
+        inprocess = TaskDetails.objects.filter(task_status='Inprocess').count()
+        reopen = TaskDetails.objects.filter(task_status='Reopen').count()
+        expired = TaskDetails.objects.filter(task_status='Expired').count()
+        resolved = TaskDetails.objects.filter(task_status='Resolved').count()
+
+        status_task = {
+            'open': open,
+            'close': close,
+            'inprocess': inprocess,
+            'reopen': reopen,
+            'expired': expired,
+            'resolved': resolved,
+        }
+        
+        labels = status_task.keys()
+        count = status_task.values()
+
+        plt.figure(figsize=(6,5))
+        plt.pie(count, labels=labels, autopct='%1.1f%%', startangle=140)
+        plt.axis('equal')
+        plt.title('Task Status Pie Chart')
+        buffer=io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        return HttpResponse(buffer, content_type='image/png')
+
+
+    else:
+        messages.error(request, 'You must be logged in to see the dashboard')
+        return redirect('login')
+    
+def chart_show(request):
+    if request.user.is_authenticated:
+        return render(request, 'myapp/task_status.html')
+
+    else:
+        messages.error(request, 'You must be logged in to see the dashboard')

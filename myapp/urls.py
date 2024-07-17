@@ -32,6 +32,9 @@ urlpatterns = [
     path('resolve_task/<int:id>/', views.resolve_task, name='resolve_task'),
     path('account/', views.Account_Detail, name='account'),
     path('transaction/', views.Transactions, name='transaction'),
+
+    path('status_chart/', views.dashboard, name='status_chart'),
+    path('status_task/', views.chart_show, name='status_task'),
         
     
 ]

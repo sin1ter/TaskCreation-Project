@@ -23,10 +23,16 @@
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{% url 'bucket' %}">Bucket</a>
             </li>
+            
             {% if request.user.is_authenticated and request.user.is_superuser %}            
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'account' %}">Add Coin</a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'status_task' %}">Dashboard</a>
+              </li>
+
             {% endif %}
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
