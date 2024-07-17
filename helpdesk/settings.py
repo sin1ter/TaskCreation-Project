@@ -137,6 +137,6 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 #auto logout
 AUTO_LOGOUT = {
-    'SESSION_TIME': 2,
+    'SESSION_TIME': 3600,
     'MESSAGE': 'The session has expired. Please login again to continue.',
 }
