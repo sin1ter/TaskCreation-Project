@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'myapp', 
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -49,6 +50,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'helpdesk.urls'
@@ -132,3 +135,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+#auto logout
+AUTO_LOGOUT = {
+    'SESSION_TIME': 2,
+    'MESSAGE': 'The session has expired. Please login again to continue.',
+}

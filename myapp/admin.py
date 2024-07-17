@@ -1,9 +1,9 @@
 from django.contrib import admin
 from .models import *
-
+from import_export.admin import ImportExportModelAdmin
 # Register your models here.
 
-class UserProfileAdmin(admin.ModelAdmin):
+class UserProfileAdmin(ImportExportModelAdmin):
     list_display = ('Address', 'City', 'State')
 
 class TaskDetailsAdmin(admin.ModelAdmin):
@@ -33,3 +33,4 @@ admin.site.register(TaskDetails, TaskDetailsAdmin)
 admin.site.register(Bucket, BucketAdmin)
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Transaction, TransactionAdmin)
+# admin.site.register(ImportExportModelAdmin)
