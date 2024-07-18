@@ -34,6 +34,7 @@ urlpatterns = [
     path('transaction/', views.Transactions, name='transaction'),
 
     path('status_chart/', views.dashboard, name='status_chart'),
+    path('status_bar/', views.bar_chart, name='status_bar'),
     path('status_task/', views.chart_show, name='status_task'),
         
     

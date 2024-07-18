@@ -343,9 +343,33 @@ def dashboard(request):
         messages.error(request, 'You must be logged in to see the dashboard')
         return redirect('login')
     
+
+
+def bar_chart(request):
+    if request.user.is_authenticated:
+        task_status = TaskDetails.objects.values_list('task_status', flat = True)
+        data = {
+            'task_status': task_status,
+        }
+        sns.set(style='whitegrid')
+        plt.figure(figsize=(6,5))
+        ax=sns.countplot(x=task_status, data=data)
+        ax.set(title='Task Status Bar Chart')
+        buffer=io.BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        return HttpResponse(buffer, content_type='image/png')
+
+    
+    else:
+        messages.error(request, 'You must be logged in to see the dashboard')
+        return redirect('login')
+    
+
 def chart_show(request):
     if request.user.is_authenticated:
         return render(request, 'myapp/task_status.html')
 
     else:
         messages.error(request, 'You must be logged in to see the dashboard')
+        return redirect('login')
